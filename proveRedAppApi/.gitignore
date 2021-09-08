@@ -1,4 +1,4 @@
 package-lock.json
 node_modules
 RedApp.postman_collection.json
-./config/index.js
+/config/index.js
