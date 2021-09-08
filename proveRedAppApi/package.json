@@ -4,6 +4,7 @@
   "description": "Api ProveRedApp ",
   "main": "index.js",
   "scripts": {
+    "watch": "nodemon ./api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,6 +14,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.12",
     "pg": "^8.5.1"
   }
 }

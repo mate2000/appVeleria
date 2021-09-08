@@ -66,17 +66,19 @@ const getUser = async (request, response) => {
 const saveUser = async (request, response) => {
   let responseJSON = {};
   try {
-    const sql =
-      "INSERT INTO Users (iduser, fullname, email, cellphone, password_, entity, rol) VALUES($1, $2, $3, $4, $5, $6, $7);";
+    const sql = 
+       "insert into public.usuario(cedulausuario, contraseña, nombre, apellidos, rol, edad, numerocelular, correoelectronico, direccion) values($1,$2,$3,$4,$5,$6,$7,$8,$9)";
     let body = request.body;
     let values = [
       body.id,
-      body.fullname,
-      body.email,
-      body.cellphoneNumber,
       body.password,
-      body.entity,
+      body.name,
+      body.lastname,
       body.rol,
+      body.age,
+      body.cellphoneNumber,
+      body.email,
+      body.address
     ];
     await _servicePg.execute(sql, values);
     responseJSON.ok = true;

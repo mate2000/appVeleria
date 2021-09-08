@@ -13,7 +13,7 @@ const loginUser = async (request, response) => {
   responseJSON.ok = true;
   try {
     const sql =
-      "select fullname ,cellphone, rol from users where iduser=$1 and password_ = $2 ";
+      "select nombre, rol from usuario where  cedulausuario = $1 and contraseña = $2";
     let body = request.body;
     let values = [body.id, body.password];
 
