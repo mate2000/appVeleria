@@ -6,7 +6,7 @@
         <v-col cols="12" sm="8" md="4">
           <v-card>
             <v-toolbar color="primary" dark flat>
-              <v-toolbar-title>Red de proveedores</v-toolbar-title>
+              <v-toolbar-title>appVeleria</v-toolbar-title>
             </v-toolbar>
             <v-card-text>
               <v-form>
@@ -156,7 +156,8 @@ export default {
         .post(url, data)
         .then((res) => {
           localStorage.setItem("token", res.data.info);
-          this.loadUser(this.id);
+          //this.loadUser(this.id);
+          this.$router.push("/register");
         })
         .catch((err) => {
           alert("Usuario o contraseña incorrecta");

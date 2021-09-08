@@ -5,19 +5,37 @@
       <!-- Se crea el formulario de regsitro de usuario -->
 
       <v-text-field
-        v-model="user.fullname"
+        v-model="user.name"
         :counter="40"
         :rules="nameRules"
-        label="Nombre completo"
+        label="Nombre"
+        class="mt-md-6 px-md-6"
+        required
+      ></v-text-field>
+
+       <v-text-field
+        v-model="user.lastname"
+        :counter="40"
+        :rules="nameRules"
+        label="Apellidos"
         class="mt-md-6 px-md-6"
         required
       ></v-text-field>
 
       <v-text-field
         v-model="user.id"
-        :counter="40"
-        :rules="nameRules"
+        :rules="idRules"
         label="Documento de identidad"
+        input
+        type="number"
+        class="px-md-6 mx-lg-auto"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="user.age"
+        :rules="ageRules"
+        label="Edad"
         input
         type="number"
         class="px-md-6 mx-lg-auto"
@@ -34,8 +52,8 @@
 
       <v-text-field
         v-model="user.password"
-        :counter="10"
-        :rules="nameRules"
+        :counter="15"
+        :rules="passwordRules"
         label="Contraseña"
         type="password"
         class="px-md-6 mx-lg-auto"
@@ -46,19 +64,19 @@
         v-model="user.cellphoneNumber"
         :rules="cellphoneNumber"
         label="Numero de celular"
-        type="number"
         class="px-md-6 mx-lg-auto"
         required
       ></v-text-field>
 
-      <v-select
-        v-model="user.entity"
-        :items="entity"
-        :rules="[(v) => !!v || 'Item is required']"
-        label="Entidad"
+      <v-text-field
+        ref="address"
+        v-model="user.address"
+        :rules="address"
+        label="Direccion"
+        counter="25"
         class="px-md-6 mx-lg-auto"
         required
-      ></v-select>
+      ></v-text-field>
 
       <v-select
         v-model="user.rol"
@@ -111,9 +129,31 @@ export default {
       (v) => !!v || "El campo es requerido",
       (v) => (v && v.length <= 40) || "",
     ],
+    idRules:[
+       (v) => !!v || "El campo es requerido",
+       (v) => (v && v.length >= 10) || "Ingrese un numero de identidad correcto",
+       (v) => (v && v.length <= 10) || "Ingrese un numero de identidad correcto" 
+    ],
+    ageRules:[
+       (v) => !!v || "El campo es requerido",
+       (v) => (v && v.length <= 2) || "Su edad no puede ser mayor a 99",
+       (v) => (v && v.length > 1) || "Su edad no puede ser menor a 10" 
+    ],
     cellphoneNumber: [
       (v) => !!v || "El campo es requerido",
-      (v) => (v && v.length == 10) || "",
+      (v) => (v && v.length == 10) || "Su numero de celular debe ser de 10 carácteres, omita el '+57'",
+    ],
+    address:[
+          (address) => !!address || 'El campo es requerido',
+          (address) =>
+            (!!address && address.length <= 25) ||
+            'Address must be less than 25 characters'
+    
+        ],
+    passwordRules:[
+      (v) => !!v || "El campo es requerido",
+      (v) => (v && v.length <= 15) || "La contraseña puede ser de maximo 15 carácteres",
+      (v) => (v && v.length >= 8) || "La contraseña tiene que tener minimo 8 carácteres",
     ],
     email: "",
     emailRules: [
@@ -121,18 +161,19 @@ export default {
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
     select: null,
-    entity: ["Persona juridica", "Persona natural"],
-    rol: ["Proveedor", "Cliente"],
+    rol: ["Proveedor", "Comerciante"],
     checkbox: false,
     users: [],
     user: {
-      fullname: null,
-      id: null,
-      email: null,
-      password: null,
-      cellphoneNumber: null,
-      entity: null,
-      rol: null,
+      id:null,
+      password:null,
+      name:null,
+      lastname:null,
+      rol:null,
+      age:null,
+      cellphoneNumber:null,
+      email:null,
+      address:null
     },
     dialog: false,
   }),
@@ -150,21 +191,19 @@ export default {
       if (this.$refs.formRegister.validate() && this.formRegister) {
         const url = "http://localhost:3001/api/v2/users";
         let data = {};
+       
+        this.user.rol = this.user.rol == "Proveedor" ? "P" : "C"; 
+
         data = this.user;
+        console.log(data)
         this.$axios
           .post(url, data)
           .then((res) => {
-            if (this.user.rol == "Proveedor") {
-              alert("Proveedor en proceso de registro");
-              sessionStorage.setItem("idProvider", this.user.id);
-              this.$router.push("/formProvider");
-            } else {
-              this.createClient();
-            }
+           this.$router.push("/");
           })
           .catch((err) => {
             //alert(err.message);
-            alert("Error en la creacion del usurio");
+            alert("Error en la creacion del usuario");
           });
       } else {
         this.dialog = true;
