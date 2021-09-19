@@ -18,17 +18,17 @@
                 size="164"
                 tile
               >
-                <span class="inicialesP">{{ iniciales() }}</span>
+               <!--  <span class="inicialesP">{{ iniciales() }}</span> -->
                 <!--<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>-->
               </v-avatar>
             </v-col>
             <v-col class="py-0">
               <v-list-item color="rgba(0, 0, 0, .4)" dark>
                 <v-list-item-content>
-                  <v-list-item-title class="title" v-text="userOnline.fullname">
+                  <v-list-item-title class="title" v-text="userOnlineC.nombre">
                   </v-list-item-title>
                   <v-list-item-subtitle
-                    v-text="userOnline.entity"
+                    v-text="userOnlineC.correoelectronico"
                   ></v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -107,39 +107,45 @@ export default {
     clients: [],
     usersClients: [],
     temp: {
-      fullname: null,
-      idUser: null,
-      email: null,
-      password_: null,
-      entity: null,
+      nombre: null,
+      apellidos:null,
+      cedulausuario: null,
+      correoelectronico: null,
+      contraseña: null,
+      edad: null,
+      numerocelular: null,
+      direccion:null,
       rol: null,
-      cellphone: null,
     },
 
-    userOnline: {
-      fullname: null,
-      cellphone: null,
-      idUser: null,
-      email: null,
-      password_: null,
+    userOnlineC: {
+      nombre: null,
+      apellidos:null,
+      cedulausuario: null,
+      correoelectronico: null,
+      contraseña: null,
+      edad: null,
+      numerocelular: null,
+      direccion:null,
       rol: null,
-      entity: null,
     },
 
     user: {
-      fullname: null,
-      idUser: null,
-      email: null,
-      password_: null,
-      entity: null,
-      cellphone: null,
+       nombre: null,
+      apellidos:null,
+      cedulausuario: null,
+      correoelectronico: null,
+      contraseña: null,
+      edad: null,
+      numerocelular: null,
+      direccion:null,
       rol: null,
     },
   }),
   methods: {
     loadInfo() {
-      let onlineUserClient = localStorage.getItem("onlineUserClient");
-      this.userOnline = JSON.parse(onlineUserClient);
+      let onlineUser = localStorage.getItem("onlineUser");
+      this.userOnlineC = JSON.parse(onlineUser);
       this.user = this.userOnline;
     },
 

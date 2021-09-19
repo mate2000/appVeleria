@@ -63,7 +63,7 @@ export default {
       serviceDescription: null,
       averagepunctuation: null,
     },
-    onlineUserClient: {},
+    onlineUser: {},
   }),
   methods: {
     loadUser(id) {
@@ -74,15 +74,15 @@ export default {
         .get(url)
         .then((res) => {
           user = res.data.info[0];
-          if (user.rol === "Proveedor") {
-            this.onlineUserProvider = user;
-            this.loadUsersProviders(id);
+          if (user.rol === "P") {
+            this.onlineUser = user;
+            //this.loadUsersProviders(id);
             this.$router.push("/homeProvider");
           } else {
-            this.onlineUserClient = user;
+            this.onlineUser = user;
             localStorage.setItem(
-              "onlineUserClient",
-              JSON.stringify(this.onlineUserClient)
+              "onlineUser",
+              JSON.stringify(this.onlineUser)
             );
             this.$router.push("/homeClient");
           }
@@ -158,8 +158,7 @@ export default {
         .post(url, data)
         .then((res) => {
           localStorage.setItem("token", res.data.info);
-          //this.loadUser(this.id);
-          this.$router.push("/register");
+          this.loadUser(this.id);
         })
         .catch((err) => {
           alert("Usuario o contraseña incorrecta");
