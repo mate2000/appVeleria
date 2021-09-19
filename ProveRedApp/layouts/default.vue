@@ -94,7 +94,7 @@ export default {
   methods: {
     logout() {
       this.$router.push("/");
-      localStorage.setItem("onlineUserProvider", {});
+      localStorage.setItem("onlineUser", {});
     },
     token() {
       let token = localStorage.getItem("token");
