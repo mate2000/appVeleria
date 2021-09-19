@@ -27,7 +27,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click="Login()" color="primary">Ingresar</v-btn>
+              <!--Aquí en vez de LoginTemp() va solo Login()-->
+              <v-btn @click="LoginTemp()" color="primary">Ingresar</v-btn>
               <v-btn @click="goToRegister()" color="primary">Registrarme</v-btn>
             </v-card-actions>
           </v-card>
@@ -136,6 +137,7 @@ export default {
               "onlineUserClient",
               JSON.stringify(this.onlineUserClient)
             );
+            //Teo aquí la nueva pagina a la que va es /homeTrader y borras ahí si el metodo LoginTemp()
             this.$router.push("/homeClient");
           }
         } else {

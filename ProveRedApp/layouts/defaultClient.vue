@@ -50,7 +50,7 @@ export default {
     return {
       drawer: null,
       items_menu: [
-        { id: "01", title: "Home", icon: "mdi-home", route: "/homeClient" },
+        { id: "01", title: "Home", icon: "mdi-home", route: "/homeTrader" },
         {
           id: "02",
           title: "Perfil",
@@ -59,9 +59,9 @@ export default {
         },
         {
           id: "03",
-          title: "Busqueda",
+          title: "Buscar productos",
           icon: "mdi-magnify-plus",
-          route: "/searchProvider",
+          route: "/searchProducts",
         },
         {
           id: "04",

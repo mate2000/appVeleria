@@ -88,6 +88,12 @@ export default {
           icon: "mdi-book-open",
           route: "/myContractsProcess",
         },
+        {
+          id: "08",
+          title: "Buscar productos",
+          icon: "mdi-magnify-plus",
+          route: "/searchProducts",
+        },
       ],
     };
   },

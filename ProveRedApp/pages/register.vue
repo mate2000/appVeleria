@@ -89,7 +89,7 @@
 
       <v-checkbox
         v-model="checkbox"
-        :rules="[(v) => !!v || 'You must agree to continue!']"
+        :rules="[(v) => !!v || 'Debes estar de acuerdo para continuar']"
         label="¿Esta de acuerdo con los terminos y condiciones?"
         class="px-md-6 mx-lg-auto"
         required
