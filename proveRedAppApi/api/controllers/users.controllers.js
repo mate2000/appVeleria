@@ -35,7 +35,7 @@ const getUsers = async (request, response) => {
 const getUser = async (request, response) => {
   let responseJSON = {};
   try {
-    const sql = "select * from Users where idUser = $1";
+    const sql = "select * from usuario where cedulausuario = $1";
     let id = request.params.id;
     let responseDB = await _servicePg.execute(sql, [id]);
     let rows = responseDB.rows;

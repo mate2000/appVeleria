@@ -25,6 +25,7 @@ const loginUser = async (request, response) => {
       responseJSON.info = jwt.createToken(user);
       response.status(201).send(responseJSON);
     } else {
+      responseJSON.ok=false;
       responseJSON.message = "Users not found (Verify id, password)";
       responseJSON.info = [];
       response.status(404).send(responseJSON);
@@ -32,7 +33,7 @@ const loginUser = async (request, response) => {
   } catch (error) {
     console.log(error.message);
     responseJSON.ok = false;
-    responseJSON.message = "Error while get user.";
+    responseJSON.message = "Error while getting the user.";
     responseJSON.info = error.message;
     response.status(400).send(responseJSON);
   }

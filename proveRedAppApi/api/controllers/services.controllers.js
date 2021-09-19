@@ -67,7 +67,7 @@ const saveService = async (request, response) => {
   let responseJSON = {};
   try {
     const sql =
-      "INSERT INTO Services (idprovider, description, initdate, findate, state, total) VALUES($1, $2, $3, $4, $5, $6);";
+      "INSERT INTO inventarioproveedor (cedulausuario, nombreproducto, tipoproducto, descripciontamanoproducto, descripcionproducto, precioproducto, codigoproducto) VALUES($1, $2, $3, $4, $5, $6, $7);";
     let body = request.body;
     let initdate = new Date(request.body.initdate);
     let findate = new Date(request.body.findate);
