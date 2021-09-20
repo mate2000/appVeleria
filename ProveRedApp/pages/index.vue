@@ -28,7 +28,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <!--Aquí en vez de LoginTemp() va solo Login()-->
-              <v-btn @click="LoginTemp()" color="primary">Ingresar</v-btn>
+              <v-btn @click="Login()" color="primary">Ingresar</v-btn>
               <v-btn @click="goToRegister()" color="primary">Registrarme</v-btn>
             </v-card-actions>
           </v-card>

@@ -118,7 +118,7 @@ export default {
       rol: null,
     },
 
-    userOnlineC: {
+    userOnlineT: {
       nombre: null,
       apellidos:null,
       cedulausuario: null,
@@ -131,7 +131,7 @@ export default {
     },
 
     user: {
-       nombre: null,
+      nombre: null,
       apellidos:null,
       cedulausuario: null,
       correoelectronico: null,
@@ -164,5 +164,3 @@ export default {
   },
 };
 </script>
-
-

@@ -8,7 +8,7 @@
       class="elevation-1"
     >
       <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mdi-phone" @click="getInventoryProvider(item)">
+        <v-icon small class="mdi-phone" @click="getNumberProvider(item)">
           mdi-phone
         </v-icon>
       </template> 
@@ -24,11 +24,8 @@
 
           <v-row style="width: 300px;">
             <v-col cols="12" sm="6">
-              <a
-                href="https://api.whatsapp.com/send?phone=573137364711&text=Bienvenido"
-                target="_blank"
-              >
-                <v-icon class="mdi-whatsapp">mdi-whatsapp </v-icon>
+              <a v-bind:href="this.cellphoneM(this.cellphone)">              
+                <v-icon class="mdi-whatsapp" >mdi-whatsapp </v-icon>
                 <v-icon class="mr-2" style="margin-left: 20px;">mdi-email</v-icon>
               </a>
             </v-col>
@@ -54,21 +51,27 @@ export default {
   layout: "defaultClient",
   beforeMount() {
     this.loadInventories();
+    //this.cellphoneM();
+    this.obtain
   },
   //carga y guarda los datos de los servicios de un proveedor en un arreglo
   data() {
     return {
+      cellphone: "",
+      inventoryProviderTemp: [],
+      users: [],
+      providersInfo: [],
       inventoriesProviders: [],
       onlineUserClient: {},
       headers: [
         { text: "id inventario", value: "idinventarioproveedor" },
-        { text: "cedula proveedor", value: "cedulausuario" },
         { text: "Nombre producto", value: "nombreproducto"},
         { text: "Tipo producto", value: "tipoproducto"},
         { text: "tamaño", value: "descripciontamanoproducto"},
         { text: "descripcion", value: "descripcionproducto"},
         { text: "precio", value: "precioproducto"},
         { text: "codigo", value: "codigoproducto"},
+        { text: "Celular", value: "numerocelular"},
         { text: "Opciones", value: "actions" },
       ],
       dialogContact: false,
@@ -82,7 +85,34 @@ export default {
         .get(url)
         .then((res) => {
           let inventoriesProviders = res.data.info;
-          this.inventoriesProviders = inventoriesProviders;
+          //this.inventoriesProviders = inventoriesProviders;
+
+          const url2 = "http://localhost:3001/users"; 
+          this.$axios
+          .get(url2)
+          .then((res) => {
+            let users = res.data.info;
+            //this.users = users;
+            //console.log("Usuarios: ", users, data);
+            //this.inventoriesProviders = inventoriesProviders;
+            //debugger
+            console.log("INVENTORY DATA:", inventoriesProviders);
+            console.log("USERS DATA: ", users)
+
+            for(let i = 0; i < inventoriesProviders.length; i++){
+              for(let j = 0; j < users.length; j++){
+                if(inventoriesProviders[i].cedulausuario === users[j].cedulausuario){
+                  inventoriesProviders[i].numerocelular = users[j].numerocelular;
+                }
+              }
+            }
+
+            this.inventoriesProviders = inventoriesProviders;
+
+          })
+          .catch((err) => {
+            console.error(err);
+          });
         })
         .catch((err) => {
           console.error(err);
@@ -92,12 +122,18 @@ export default {
       if (onlineUser != null) {
         this.onlineUser = JSON.parse(onlineUser);
       }
+
     },
-    getInventoryProvider(inventoryProvider){
+    getNumberProvider(inventoryProvider){
+      //console.log("ITEEEMMMMMMMMMMMMM ", inventoryProvider);
       this.dialogContact = true;
+      this.cellphone = inventoryProvider.numerocelular; 
     },
     cancelDialog() {
       this.dialogContact = false;
+    },
+    cellphoneM(cellphoneNumberProvider){
+      return "https://api.whatsapp.com/send?phone=57" + cellphoneNumberProvider + "&text=Bienvenido";
     },
     updateScreen(){
       window.location.reload();
