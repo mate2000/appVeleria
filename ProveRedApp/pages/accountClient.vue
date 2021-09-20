@@ -156,7 +156,6 @@ export default {
       (v) => (v && v.length == 10) || "",
       ,
     ],
-
     emailRules: [
       (v) => !!v || "E-mail es requerido",
       (v) => /.+@.+\..+/.test(v) || "ingrese un E-mail valido",

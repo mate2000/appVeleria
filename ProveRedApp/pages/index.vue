@@ -13,7 +13,6 @@
                 <v-text-field
                   label="Cedula"
                   prepend-icon=""
-                  type="number"
                   v-model="id"
                 ></v-text-field>
 

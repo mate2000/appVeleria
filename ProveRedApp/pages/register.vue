@@ -27,7 +27,6 @@
         :rules="idRules"
         label="Documento de identidad"
         input
-        type="number"
         class="px-md-6 mx-lg-auto"
         required
       ></v-text-field>
@@ -81,7 +80,7 @@
       <v-select
         v-model="user.rol"
         :items="rol"
-        :rules="[(v) => !!v || 'Item is required']"
+        :rules="[(v) => !!v || 'El campo es requerido']"
         label="Rol"
         class="px-md-6 mx-lg-auto"
         required
@@ -130,14 +129,13 @@ export default {
       (v) => (v && v.length <= 40) || "",
     ],
     idRules:[
-       (v) => !!v || "El campo es requerido",
-       (v) => (v && v.length >= 10) || "Ingrese un numero de identidad correcto",
-       (v) => (v && v.length <= 10) || "Ingrese un numero de identidad correcto" 
+      (v) => !!v || "El campo es requerido",
+      (v) => (v && (v.length === 10 || v.length === 8)) || "Ingrese un numero de identidad correcto", 
     ],
     ageRules:[
-       (v) => !!v || "El campo es requerido",
-       (v) => (v && v.length <= 2) || "Su edad no puede ser mayor a 99",
-       (v) => (v && v.length > 1) || "Su edad no puede ser menor a 10" 
+      (v) => !!v || "El campo es requerido",
+      (v) => (v && v.length <= 2) || "Su edad no puede ser mayor a 99",
+      (v) => (v && v.length > 1) || "Su edad no puede ser menor a 10" 
     ],
     cellphoneNumber: [
       (v) => !!v || "El campo es requerido",
@@ -147,7 +145,7 @@ export default {
           (address) => !!address || 'El campo es requerido',
           (address) =>
             (!!address && address.length <= 25) ||
-            'Address must be less than 25 characters'
+            'La direccion solo puede ser de maximo 25 caracteres'
     
         ],
     passwordRules:[

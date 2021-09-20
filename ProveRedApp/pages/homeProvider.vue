@@ -18,7 +18,7 @@
                 size="164"
                 tile
               >
-               <!--  <span class="inicialesP">{{ iniciales() }}</span> -->
+                <span class="inicialesP">{{ iniciales() }}</span>
               </v-avatar>
             </v-col>
             <v-col class="py-0">
@@ -27,7 +27,7 @@
                   <v-list-item-title class="title" v-text="userOnline.nombre">
                   </v-list-item-title>
                   <v-list-item-subtitle
-                    v-text="userOnline.email"
+                    v-text="userOnline.correoelectronico"
                   ></v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -100,11 +100,7 @@
 export default {
   beforeMount() {
     this.loadInfo();
-    //this.loadUsers();
-    //console.log(this.userOnline);
-
-   // console.log(this.iniciales());
-  },
+    },
 
   data: () => ({
     user: {
@@ -142,8 +138,21 @@ export default {
     },
 
     iniciales() {
+      let name = this.userOnline.nombre;
       let inicialName = "";
-      let nameSplit = this.userOnline.fullname.split([]);
+      let nameSplit = ""
+      if(name.includes(' ')){
+        nameSplit = this.userOnline.nombre.split([" "]);
+        nameSplit = nameSplit[0].toString();
+        nameSplit = nameSplit.split([]) + " " + this.userOnline.apellidos.split([]);
+        console.log(nameSplit)
+      }else{
+        nameSplit = this.userOnline.nombre.split([]) + " " + this.userOnline.apellidos.split([]);
+      }
+      
+      //let nameSplit = this.userOnline.nombre.split([]) + " " + this.userOnline.apellidos.split([]);
+      console.log("this.userOnline", this.userOnline);
+      console.log("nameSplit", nameSplit);
       for (let i = 0; i < nameSplit.length; i++) {
         if (nameSplit[i - 1] == " ") {
           inicialName = nameSplit[0] + nameSplit[i];
