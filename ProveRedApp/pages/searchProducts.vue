@@ -64,7 +64,6 @@ export default {
       inventoriesProviders: [],
       onlineUserClient: {},
       headers: [
-        { text: "id inventario", value: "idinventarioproveedor" },
         { text: "Nombre producto", value: "nombreproducto"},
         { text: "Tipo producto", value: "tipoproducto"},
         { text: "tamaño", value: "descripciontamanoproducto"},
