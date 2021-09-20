@@ -69,15 +69,14 @@ const saveService = async (request, response) => {
     const sql =
       "INSERT INTO inventarioproveedor (cedulausuario, nombreproducto, tipoproducto, descripciontamanoproducto, descripcionproducto, precioproducto, codigoproducto) VALUES($1, $2, $3, $4, $5, $6, $7);";
     let body = request.body;
-    let initdate = new Date(request.body.initdate);
-    let findate = new Date(request.body.findate);
     let values = [
-      body.idprovider,
-      body.description,
-      initdate,
-      findate,
-      body.state,
-      body.total,
+      body.cedulausuario,
+      body.nombreproducto,
+      body.tipoproducto,
+      body.descripciontamanoproducto,
+      body.descripcionproducto,
+      body.precioproducto,
+      body.codigoproducto,
     ];
     await _servicePg.execute(sql, values);
     responseJSON.ok = true;
