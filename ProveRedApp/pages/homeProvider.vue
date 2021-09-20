@@ -18,16 +18,16 @@
                 size="164"
                 tile
               >
-                <span class="inicialesP">{{ iniciales() }}</span>
+               <!--  <span class="inicialesP">{{ iniciales() }}</span> -->
               </v-avatar>
             </v-col>
             <v-col class="py-0">
               <v-list-item color="rgba(0, 0, 0, .4)" dark>
                 <v-list-item-content>
-                  <v-list-item-title class="title" v-text="userOnline.fullname">
+                  <v-list-item-title class="title" v-text="userOnline.nombre">
                   </v-list-item-title>
                   <v-list-item-subtitle
-                    v-text="userOnline.typeprovider"
+                    v-text="userOnline.email"
                   ></v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -101,68 +101,44 @@ export default {
   beforeMount() {
     this.loadInfo();
     //this.loadUsers();
-    console.log(this.userOnline);
-    
-    console.log(this.iniciales());
+    //console.log(this.userOnline);
+
+   // console.log(this.iniciales());
   },
 
   data: () => ({
     user: {
-      fullname: null,
-      id: null,
-      email: null,
-      password_: null,
-      entity: null,
-      cellphone: null,
+        nombre: null,
+      apellidos: null,
+      cedulausuario: null,
+      correoelectronico: null,
+      contraseña: null,
+      edad: null,
+      numerocelular: null,
+      direccion: null,
       rol: null,
     },
-    userProvider: {
-      id: null,
-      nameCompany: null,
-      typeprovider: null,
-      serviceDescription: null,
-    },
+  
     userOnline: {
-      fullname: null,
-      cellphone: null,
-      id: null,
-      email: null,
-      password_: null,
-      typeprovider: null,
+      nombre: null,
+      apellidos: null,
+      cedulausuario: null,
+      correoelectronico: null,
+      contraseña: null,
+      edad: null,
+      numerocelular: null,
+      direccion: null,
       rol: null,
-      entity: null,
-      nameCompany: null,
-      serviceDescription: null,
     },
-    users2: [],
-    user2: {
-      fullname: null,
-      id: null,
-      email: null,
-      password_: null,
-      typeprovider: null,
-      entity: null,
-      cellphone: null,
-      companyName: null,
-      serviceDescription: null,
-    },
-    /*La razón por la cual el usuario va a eliminar su cuenta */
-    userProviders2: [],
-    userProvider2: {
-      id: null,
-      nameCompany: null,
-      typeprovider: null,
-      serviceDescription: null,
-      cellphone: null,
-    },
+   
   }),
   methods: {
     //carga los usuarios almacenados localmente y convierte sus datos a JSON
     loadInfo() {
-      let onlineUserProvider = localStorage.getItem("onlineUserProvider");
-      this.userOnline = JSON.parse(onlineUserProvider);
+      let onlineUser = localStorage.getItem("onlineUser");
+      this.userOnline = JSON.parse(onlineUser);
       this.user = this.userOnline;
-      this.iniciales();
+      //this.iniciales();
     },
 
     iniciales() {

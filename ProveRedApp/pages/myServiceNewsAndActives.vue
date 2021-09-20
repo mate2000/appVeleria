@@ -8,51 +8,83 @@ import datetime
   <div>
     <!-- campos requeridos para la creación de un nuevo servicio del proveedor-->
     <v-form ref="formService" v-model="formService">
-      <v-textarea
-        v-model="service.description"
-        :counter="300"
-        :rules="serviceRules"
-        class="px-md-6 mx-lg-auto"
-        label="Describa su servicio(s)"
-      >
-      </v-textarea>
-      <p style="margin-left: 23px">
-        Fecha de inicio y finalizacion del servicio
-      </p>
-      <p style="margin-left: 23px; width: 290px">
-        Seleccione la fecha de inicio y luego la de finalizacion del evento
-      </p>
-
-      <v-row style="width: 900px">
-        <!-- <v-col cols="12" sm="6"> -->
-        <v-date-picker
-          v-model="dates"
-          style="margin-left: 32px"
-          range
-          locale="es-CO"
-        >
-        </v-date-picker>
-        <!-- </v-col> -->
-        <!-- <v-col cols="12" sm="6"> -->
-        <v-text-field
-          v-model="dateRangeText"
-          label="Fecha Inicio - Fecha Finalizacion"
-          prepend-icon="mdi-calendar"
-          style="width: 0px; margin-left: 100px"
-          :rules="nameRules"
-          readonly
-        ></v-text-field>
-        <!-- model: {{ dates }} -->
-        <!-- </v-col> -->
+      <v-row align-content="center" justify-content="center">
+        <v-col>
+          <v-text-field
+            v-model="producto.nombreproducto"
+            :counter="20"
+            :rules="nameRules"
+            outlined
+            label="Nombre del producto"
+            clearable
+          >
+          </v-text-field>
+        </v-col>
       </v-row>
-      <v-text-field
-        label="Total"
-        prepend-icon=""
-        type="number"
-        :rules="nameRules"
-        style="width: 300px; margin-left: 23px"
-        v-model="service.total"
-      ></v-text-field>
+
+      <v-row align-content="center" justify-content="center">
+        <v-col>
+          <v-combobox
+            v-model="producto.tipoproducto"
+            :items="tipos"
+            :rules="typeRules"
+            clearable
+            dense
+            hide-selected
+            outlined
+            label="Tipo de Producto"
+          >
+          </v-combobox>
+        </v-col>
+      </v-row>
+      <v-row align-content="center" justify-content="center">
+        <v-col>
+          <v-textarea
+            v-model="producto.descripciontamanoproducto"
+            auto-grow
+            label="Descripcion del tamaño del producto"
+             :rules="serviceRules"
+            clearable
+            outlined
+          >
+          </v-textarea>
+        </v-col>
+      </v-row>
+      <v-row align-content="center" justify-content="center">
+        <v-col>
+          <v-textarea
+            v-model="producto.descripcionproducto"
+            :rules="serviceRules"
+            auto-grow
+            label="Descripcion general producto"
+            clearable
+            outlined
+          >
+          </v-textarea>
+        </v-col>
+      </v-row>
+      <v-row align-content="center" justify-content="center">
+        <v-col>
+          <v-text-field
+            v-model="producto.precioproducto"
+            label="Valor del producto"
+            :rules="costRules"
+            prefix="$"
+            type="number"
+            outlined
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row align-content="center" justify-content="center">
+        <v-col>
+          <v-text-field
+            v-model="producto.codigoproducto"
+            :rules="codigoRules"
+            label="Codigo del producto"
+            outlined
+          ></v-text-field>
+        </v-col>
+      </v-row>
     </v-form>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
@@ -69,9 +101,9 @@ import datetime
     </v-dialog>
     <v-dialog v-model="dialogCreateService" max-width="290">
       <v-card>
-        <v-card-title class="headline"> Servicio creado </v-card-title>
+        <v-card-title class="headline"> Producto  creado </v-card-title>
 
-        <v-card-text> Se ha creado un nuevo Servicio </v-card-text>
+        <v-card-text> Se ha creado un nuevo producto </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -83,10 +115,10 @@ import datetime
       </v-card>
     </v-dialog>
     <v-btn
-      @click="createService()"
-      style="width: 300px; height: 40px; margin-left: 20px; margin-top: 16px"
+      @click="createProduct()"
+      style="width: 300px; height: 40px; margin-left: 450px; margin-top: 16px"
       color="primary"
-      >Nuevo servicio</v-btn
+      >Nuevo producto</v-btn
     >
   </div>
 </template>
@@ -109,22 +141,39 @@ export default {
     dates: [],
     serviceRules: [
       (v) => !!v || "El campo es requerido",
-      (v) => (v && v.length <= 300 && v.length > 1) || "",
+      (v) => (v && v.length <= 100 && v.length > 1) || "",
     ],
     nameRules: [
       (v) => !!v || "El campo es requerido",
       (v) => (v && v.length <= 40) || "",
     ],
+    typeRules: [
+      (v) => !!v || "El campo es requerido",
+    ],
+    costRules: [
+      (v) => !!v || "El campo es requerido",
+    ],
+    codigoRules: [
+      (v) => !!v || "El campo es requerido",
+    ],
     onlineUserProvider: {},
-    service: {
-      idservice: null,
-      idprovider: null,
-      description: null,
-      initdate: null,
-      findate: null,
-      state: null,
-      total: null,
+    producto: {
+      cedulausuario: null,
+      nombreproducto: null,
+      tipoproducto: null,
+      descripciontamanoproducto: null,
+      descripcionproducto: null,
+      precioproducto: null,
+      codigoproducto: null,
     },
+    tipos: [
+      "Vela",
+      "Velon",
+      "Pascualito",
+      "Cirio",
+      "Cirio Pascual",
+      "Veladora",
+    ],
     services: [],
   }),
   computed: {
@@ -135,21 +184,19 @@ export default {
   methods: {
     //Carga los servicios anteriormente creados en un arreglo
     loadInfo() {
-      let onlineUserProvider = localStorage.getItem("onlineUserProvider");
-      if (onlineUserProvider != null) {
-        this.onlineUserProvider = JSON.parse(onlineUserProvider);
+      let onlineUser = localStorage.getItem("onlineUser");
+      if (onlineUser != null) {
+        this.onlineUser = JSON.parse(onlineUser);
       }
     },
     /// Crea un nuevo servicio una vez verificados todas las reglas de los campos del formulario, y lo guarda en el arreglo de servicios
-    createService() {
+    createProduct() {
+      //consol.log(this.onlineUser)
       if (this.$refs.formService.validate() && this.formService) {
         const url = "http://localhost:3001/api/v2/services";
         let data = {};
-        this.service.initdate = this.dates[0];
-        this.service.findate = this.dates[this.dates.length - 1];
-        this.service.state = "En espera";
-        this.service.idprovider = this.onlineUserProvider.iduser;
-        data = this.service;
+        this.producto.cedulausuario = this.onlineUser.cedulausuario;
+        data = this.producto;
         console.log(data);
         this.$axios
           .post(url, data)
