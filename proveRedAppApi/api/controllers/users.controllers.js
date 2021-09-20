@@ -10,7 +10,7 @@ const _servicePg = new ServicePostgres();
 const getUsers = async (request, response) => {
   let responseJSON = {};
   try {
-    const sql = "select * from Users";
+    const sql = "select * from usuario";
     let responseDB = await _servicePg.execute(sql);
     let rowCount = responseDB.rowCount;
     let rows = responseDB.rows;

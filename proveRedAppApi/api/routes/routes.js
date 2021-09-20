@@ -7,6 +7,7 @@ const serviceController = require("../controllers/services.controllers");
 const contractController = require("../controllers/contracts.controllers");
 const authController = require("../controllers/auth.controllers");
 const reviewsControllers = require("../controllers/reviews.controllers");
+const inventoryProviderControllers = require("../controllers/inventoryProvider.controllers");
 
 const router = express.Router();
 
@@ -20,6 +21,8 @@ router
 
   .post("/api/v2/clients", clientController.saveClient)
   .post("/api/v2/providers", providerController.saveProvider)
+
+  .get("/api/v2/inventoryProvider", inventoryProviderControllers.getInventoryProvider)
 
   .use("/", authController.middelewar)
   .get("/api/v2/users/valid", authController.validToken)
