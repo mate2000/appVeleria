@@ -6,6 +6,7 @@
       :items="inventoriesProviders"
       :items-per-page="10"
       class="elevation-1"
+      max-width="6000"
     >
       <template v-slot:[`item.actions`]="{ item }">
         <v-icon small class="mdi-phone" @click="getNumberProvider(item)">
@@ -58,18 +59,15 @@ export default {
   data() {
     return {
       cellphone: "",
-      inventoryProviderTemp: [],
       users: [],
-      providersInfo: [],
       inventoriesProviders: [],
-      onlineUserClient: {},
       headers: [
         { text: "Nombre producto", value: "nombreproducto"},
         { text: "Tipo producto", value: "tipoproducto"},
-        { text: "tamaño", value: "descripciontamanoproducto"},
-        { text: "descripcion", value: "descripcionproducto"},
-        { text: "precio", value: "precioproducto"},
-        { text: "codigo", value: "codigoproducto"},
+        { text: "Tamaño", value: "descripciontamanoproducto"},
+        { text: "Descripcion", value: "descripcionproducto"},
+        { text: "Precio", value: "precioproducto"},
+        { text: "Codigo", value: "codigoproducto"},
         { text: "Celular", value: "numerocelular"},
         { text: "Opciones", value: "actions" },
       ],

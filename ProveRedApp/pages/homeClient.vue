@@ -18,7 +18,7 @@
                 size="164"
                 tile
               >
-                <span class="inicialesP">{{ iniciales() }}</span> 
+                <span class="inicialesP">{{ iniciales() }}</span>
                 <!--<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>-->
               </v-avatar>
             </v-col>
@@ -109,37 +109,37 @@ export default {
     usersClients: [],
     temp: {
       nombre: null,
-      apellidos:null,
+      apellidos: null,
       cedulausuario: null,
       correoelectronico: null,
       contraseña: null,
       edad: null,
       numerocelular: null,
-      direccion:null,
+      direccion: null,
       rol: null,
     },
 
     userOnlineT: {
       nombre: null,
-      apellidos:null,
+      apellidos: null,
       cedulausuario: null,
       correoelectronico: null,
       contraseña: null,
       edad: null,
       numerocelular: null,
-      direccion:null,
+      direccion: null,
       rol: null,
     },
 
     user: {
       nombre: null,
-      apellidos:null,
+      apellidos: null,
       cedulausuario: null,
       correoelectronico: null,
       contraseña: null,
       edad: null,
       numerocelular: null,
-      direccion:null,
+      direccion: null,
       rol: null,
     },
   }),
@@ -153,24 +153,28 @@ export default {
     iniciales() {
       let name = this.userOnlineC.nombre;
       let inicialName = "";
-      let nameSplit = ""
-      console.log("name ", name)
-      debugger
-      if(name.includes(' ')){
+      let nameSplit = "";
+      console.log("name ", name);
+      //debugger
+      if (name.includes(" ")) {
         nameSplit = this.userOnlineC.nombre.split([" "]);
         nameSplit = nameSplit[0].toString();
-        nameSplit = nameSplit.split([]) + " " + this.userOnlineC.apellidos.split([]);
-        console.log(nameSplit)
-      }else{
-        nameSplit = this.userOnlineC.nombre.split([]) + " " + this.userOnlineC.apellidos.split([]);
+        nameSplit =
+          nameSplit.split([]) + " " + this.userOnlineC.apellidos.split([]);
+        console.log(nameSplit);
+      } else {
+        nameSplit =
+          this.userOnlineC.nombre.split([]) +
+          " " +
+          this.userOnlineC.apellidos.split([]);
       }
-      
+
       for (let i = 0; i < nameSplit.length; i++) {
         if (nameSplit[i - 1] == " ") {
           inicialName = nameSplit[0] + nameSplit[i];
           break;
         }
-        //console.log(nameSplit[i]) 
+        //console.log(nameSplit[i])
       }
       return inicialName;
     },

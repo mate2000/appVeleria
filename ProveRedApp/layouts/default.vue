@@ -94,6 +94,12 @@ export default {
           icon: "mdi-magnify-plus",
           route: "/searchProducts",
         },
+        {
+          id: "09",
+          title: "Mis facturas",
+          icon: "mdi-receipt",
+          route: "/electronicBills",
+        },
       ],
     };
   },

@@ -8,6 +8,7 @@ const contractController = require("../controllers/contracts.controllers");
 const authController = require("../controllers/auth.controllers");
 const reviewsControllers = require("../controllers/reviews.controllers");
 const inventoryProviderControllers = require("../controllers/inventoryProvider.controllers");
+const electronicBillsControllers = require("../controllers/electronicBills.controllers")
 
 const router = express.Router();
 
@@ -26,6 +27,8 @@ router
 
   .use("/", authController.middelewar)
   .get("/api/v2/users/valid", authController.validToken)
+
+  .get("/api/v2/electronicBills", electronicBillsControllers.getElectronicBills)
 
   .get("/users", userController.getUsers)
   .get("/users/:id", userController.getUser)

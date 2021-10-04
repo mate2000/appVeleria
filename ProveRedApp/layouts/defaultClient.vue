@@ -81,6 +81,12 @@ export default {
           icon: "mdi-book-open",
           route: "/myProcessContracts",
         },
+        {
+          id: "07",
+          title: "Mis facturas",
+          icon: "mdi-receipt",
+          route: "/electronicBills",
+        },
       ],
     };
   },
