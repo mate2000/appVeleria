@@ -102,15 +102,15 @@ const updateUser = async (request, response) => {
   let responseJSON = {};
   try {
     const sql =
-      "UPDATE Users SET fullname=$1, email=$2, cellphone=$3, password_=$4, entity=$5, rol=$6 WHERE iduser=$7;";
+      "UPDATE usuario SET nombre=$1, apellidos=$2, correoelectronico=$3, numerocelular=$4, contraseña=$5, rol=$6 WHERE cedulausuario=$7;";
     let id = request.params.id;
     let body = request.body;
     values = [
-      body.fullname,
+      body.name,
+      body.lastname,
       body.email,
       body.cellphoneNumber,
       body.password,
-      body.entity,
       body.rol,
       id,
     ];
@@ -142,7 +142,7 @@ const updateUser = async (request, response) => {
 const deleteUser = async (request, response) => {
   let responseJSON = {};
   try {
-    sql = "DELETE FROM Users WHERE iduser=$1;";
+    sql = "DELETE FROM usuario WHERE cedulausuario=$1;";
     let id = request.params.id;
     let responseDB = await _servicePg.execute(sql, [id]);
     let rowCount = responseDB.rowCount;

@@ -6,16 +6,25 @@
 
         <v-row>
           <v-text-field
-            v-model="user.fullname"
+            v-model="user.nombre"
             :counter="40"
             :rules="nameRules"
-            label="Nombre completo"
+            label="Nombre"
+            style="margin-left: 30px"
+            required
+          ></v-text-field>
+
+           <v-text-field
+            v-model="user.apellidos"
+            :counter="40"
+            :rules="nameRules"
+            label="Apellidos"
             style="margin-left: 30px"
             required
           ></v-text-field>
 
           <v-text-field
-            v-model="user.email"
+            v-model="user.correoelectronico"
             :rules="emailRules"
             label="E-mail"
             style="margin-left: 30px"
@@ -23,9 +32,9 @@
           ></v-text-field>
 
           <v-text-field
-            v-model="user.password_"
-            :counter="10"
-            :rules="nameRules"
+            v-model="user.contraseña"
+            :counter="15"
+            :rules="passwordRules"
             label="Contraseña"
             style="margin-left: 30px"
             required
@@ -34,22 +43,13 @@
 
         <v-row style="width: 550px; margin-left: 20px">
           <v-text-field
-            v-model="user.cellphone"
-            :counter="10"
-            :rules="nameRules"
+            v-model="user.numerocelular"
+            :rules="cellphoneNumber"
             label="Numero de celular"
             required
           ></v-text-field>
 
-          <v-select
-            v-model="user.entity"
-            :items="entity"
-            :rules="[(v) => !!v || 'Item is required']"
-            label="Entidad"
-            class="px-md-0"
-            style="width: 250px; margin-left: 30px"
-            required
-          ></v-select>
+         
         </v-row>
 
         <v-btn
@@ -76,7 +76,7 @@
         </p>
 
         <v-text-field
-          v-model="user.iduser"
+          v-model="user.cedulausuario"
           label="Cedula"
           style="width: 200px"
           disabled
@@ -139,62 +139,74 @@ export default {
     /*Reglas para los campos*/
     formEdit: null,
     formDialog: null,
-    nameRules: [
+   nameRules: [
       (v) => !!v || "El campo es requerido",
       (v) => (v && v.length <= 40) || "",
+    ],
+    idRules:[
+      (v) => !!v || "El campo es requerido",
+      (v) => (v && (v.length === 10 || v.length === 8)) || "Ingrese un numero de identidad correcto", 
+    ],
+    ageRules:[
+      (v) => !!v || "El campo es requerido",
+      (v) => (v && v.length <= 2) || "Su edad no puede ser mayor a 99",
+      (v) => (v && v.length > 1) || "Su edad no puede ser menor a 10" 
+    ],
+    cellphoneNumber: [
+      (v) => !!v || "El campo es requerido",
+      (v) => (v && v.length == 10) || "Su numero de celular debe ser de 10 carácteres, omita el '+57'",
+    ],
+    address:[
+          (address) => !!address || 'El campo es requerido',
+          (address) =>
+            (!!address && address.length <= 25) ||
+            'La direccion solo puede ser de maximo 25 caracteres'
+    
+        ],
+    passwordRules:[
+      (v) => !!v || "El campo es requerido",
+      (v) => (v && v.length <= 15) || "La contraseña puede ser de maximo 15 carácteres",
+      (v) => (v && v.length >= 8) || "La contraseña tiene que tener minimo 8 carácteres",
     ],
     email: "",
-    entity: ["Persona juridica", "Persona natural"],
-    typeproviderSelect: ["Proveedor formal", "Proveedor informal"],
-    nameRules: [
-      (v) => !!v || "El campo es requerido",
-      (v) => (v && v.length <= 40) || "",
-    ],
-
-    cellphone: [
-      (v) => !!v || "El campo es requerido",
-      (v) => (v && v.length == 10) || "",
-      ,
-    ],
     emailRules: [
       (v) => !!v || "E-mail es requerido",
-      (v) => /.+@.+\..+/.test(v) || "ingrese un E-mail valido",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
-    serviceRules: [
-      (v) => !!v || "El campo es requerido",
-      (v) => (v && v.length <= 300 && v.length > 10) || "",
-    ],
+   
 
     dialog: false,
     dialog2: false,
 
-    onlineUserClient: {},
+    onlineUser: {},
     user: {
-      fullname: null,
-      iduser: null,
-      email: null,
-      password_: null,
-      entity: null,
-      cellphone: null,
+      nombre: null,
+      apellidos:null,
+      cedulausuario: null,
+      correoelectronico: null,
+      contraseña: null,
+      edad: null,
+      numerocelular: null,
+      direccion:null,
       rol: null,
     },
   }),
   methods: {
     loadInfo() {
-      let onlineUserClient = localStorage.getItem("onlineUserClient");
-      this.userOnline = JSON.parse(onlineUserClient);
+      let onlineUser= localStorage.getItem("onlineUser");
+      this.userOnline = JSON.parse(onlineUser);
       this.user = this.userOnline;
     },
     editUserClient() {
-      const url = "http://localhost:3001/api/v2/users/" + this.user.iduser;
+      const url = "http://localhost:3001/api/v2/users/" + this.user.cedulausuario;
       let data = {};
-      data.fullname = this.user.fullname;
-      data.email = this.user.email;
-      data.password = this.user.password_;
-      data.cellphoneNumber = this.user.cellphone;
-      data.entity = this.user.entity;
+      data.name = this.user.nombre;
+      data.lastname = this.user.apellidos;
+      data.email = this.user.correoelectronico;
+      data.cellphoneNumber = this.user.numerocelular;
+      data.password = this.user.contraseña;
       data.rol = this.user.rol;
-      data.id = this.user.iduser;
+      data.id = this.user.cedulausuario;
       this.$axios
         .put(url, data)
         .then((res) => {
@@ -203,11 +215,10 @@ export default {
         .catch((err) => {
           console.error(err);
         });
-      alert("Se edito correctamente");
       this.getUser();
     },
     deleteAccountClient() {
-      const url = "http://localhost:3001/api/v2/users/" + this.user.iduser;
+      const url = "http://localhost:3001/api/v2/users/" + this.user.cedulausuario;
       this.$axios
         .delete(url)
         .then((res) => {
@@ -222,20 +233,20 @@ export default {
     },
     goToMenu() {
       this.$router.push("/");
-      localStorage.setItem("onlineUserClient", {});
+      localStorage.setItem("onlineUser", {});
     },
     getUser() {
       let user = {};
-      const url = "http://localhost:3001/users/" + this.user.iduser;
+      const url = "http://localhost:3001/users/" + this.user.cedulausuario;
       this.$axios
         .get(url)
         .then((res) => {
           user = res.data.info[0];
           console.log(user);
-          this.onlineUserClient = user;
+          this.onlineUser = user;
           localStorage.setItem(
-            "onlineUserClient",
-            JSON.stringify(this.onlineUserClient)
+            "onlineUser",
+            JSON.stringify(this.onlineUser)
           );
         })
         .catch((err) => {
@@ -245,5 +256,4 @@ export default {
   },
 };
 </script>
-<style>
-</style>
+<style></style>
